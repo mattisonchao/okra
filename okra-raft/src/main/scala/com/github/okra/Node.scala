@@ -1,5 +1,5 @@
 package com.github.okra
 
-class Node {
-  
+class Node() {
+
 }
