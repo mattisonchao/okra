@@ -10,7 +10,7 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/okra-raft" />
+            <option value="$PROJECT_DIR$/okra-actor" />
           </set>
         </option>
       </GradleProjectSettings>
