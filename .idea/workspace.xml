@@ -5,35 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="740d715a-9219-475e-9d8c-30fdaecec888" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/okra-actor/src/main/java/com/github/okra/Actor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/okra-actor/src/main/java/com/github/okra/MailBox.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/okra-actor/src/main/java/com/github/okra/disruptor/MessageEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/okra-actor/src/main/java/com/github/okra/modal/Message.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/okra-actor/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/checkstyle-idea.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries-with-intellij-classes.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/okra-raft/okra.okra-raft.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/okra.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/scala_compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/okra-raft/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/okra-raft/src/main/scala/com/github/okra/Node.scala" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/okra-actor/src/main/java/com/github/okra/netty/codec/Decoder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/okra-actor/src/main/java/com/github/okra/netty/codec/Encoder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/okra-actor/src/main/java/com/github/okra/netty/serilizer/HessianSerialize.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/okra-actor/src/main/java/com/github/okra/netty/serilizer/Serializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/okra-actor/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/okra-actor/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,6 +51,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -114,6 +92,9 @@
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/okra-raft/main" />
       <recent name="$PROJECT_DIR$/okra-raft/scala" />
+    </key>
+    <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
+      <recent name="com.github.okra.netty.serilizer" />
     </key>
   </component>
   <component name="RunManager" selected="Application.Worker">
@@ -205,7 +186,8 @@
       <workItem from="1626424763642" duration="3000" />
       <workItem from="1626424804295" duration="3082000" />
       <workItem from="1626679727284" duration="5548000" />
-      <workItem from="1626764682126" duration="8062000" />
+      <workItem from="1626764682126" duration="10163000" />
+      <workItem from="1626819705700" duration="1391000" />
     </task>
     <servers />
   </component>

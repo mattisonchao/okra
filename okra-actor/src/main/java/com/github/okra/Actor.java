@@ -1,11 +1,11 @@
 package com.github.okra;
 
-import com.github.okra.modal.Message;
+import com.github.okra.disruptor.MessageEvent;
 import com.lmax.disruptor.EventHandler;
 import com.lmax.disruptor.WorkHandler;
 
 
-public abstract class Actor implements EventHandler<Message>, WorkHandler<Message> {
+public abstract class Actor implements EventHandler<MessageEvent>, WorkHandler<MessageEvent> {
 
     public final MailBox mailBox = new MailBox(this);
 
@@ -16,10 +16,10 @@ public abstract class Actor implements EventHandler<Message>, WorkHandler<Messag
     }
 
     @Override
-    public void onEvent(Message event) throws Exception {
+    public void onEvent(MessageEvent event) throws Exception {
         receive(event);
     }
 
-    abstract void receive(Message event);
+    abstract void receive(MessageEvent event);
 
 }
