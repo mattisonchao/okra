@@ -1,6 +1,9 @@
+import com.github.spotbugs.snom.SpotBugsTask
+
 plugins {
     id 'java-library'
     id 'checkstyle'
+    id 'com.github.spotbugs' version '4.7.0' apply false
 }
 
 allprojects {
@@ -12,7 +15,7 @@ allprojects {
 subprojects {
     apply plugin: 'java-library'
     apply plugin: 'checkstyle'
-
+    apply plugin: 'com.github.spotbugs'
 
     dependencies {
         testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
@@ -22,8 +25,17 @@ subprojects {
     }
 
     checkstyle {
-        configFile  file("${project.rootDir}/config/checkstyle/checkstyle.xml")
+        configFile file("${project.rootDir}/config/checkstyle/checkstyle.xml")
         version '8.1'
+    }
+    spotbugs {
+        toolVersion = '4.2.2'
+    }
+    tasks.withType(SpotBugsTask) {
+        reports {
+            xml.enabled = false
+            html.enabled = true
+        }
     }
     tasks.named('test') {
         useJUnitPlatform()
