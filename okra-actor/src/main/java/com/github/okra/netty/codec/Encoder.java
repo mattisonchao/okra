@@ -7,29 +7,28 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 
 public class Encoder extends MessageToByteEncoder<Message> {
-    private Serializer serializer;
+  private Serializer serializer;
 
-    private Encoder() {
-    }
+  private Encoder() {}
 
-    private Serializer getSerializer() {
-        return serializer;
-    }
+  private Serializer getSerializer() {
+    return serializer;
+  }
 
-    private void setSerializer(Serializer serializer) {
-        this.serializer = serializer;
-    }
+  private void setSerializer(Serializer serializer) {
+    this.serializer = serializer;
+  }
 
-    public static MessageToByteEncoder<Message> getEncoder(Serializer serializer) {
-        Encoder encoder = new Encoder();
-        encoder.setSerializer(serializer);
-        return encoder;
-    }
+  public static MessageToByteEncoder<Message> getEncoder(Serializer serializer) {
+    Encoder encoder = new Encoder();
+    encoder.setSerializer(serializer);
+    return encoder;
+  }
 
-    @Override
-    protected void encode(ChannelHandlerContext ctx, Message msg, ByteBuf out) throws Exception {
-        byte[] bytes = serializer.serialize(msg);
-        out.writeInt(bytes.length);
-        out.writeBytes(bytes);
-    }
+  @Override
+  protected void encode(ChannelHandlerContext ctx, Message msg, ByteBuf out) throws Exception {
+    byte[] bytes = serializer.serialize(msg);
+    out.writeInt(bytes.length);
+    out.writeBytes(bytes);
+  }
 }
