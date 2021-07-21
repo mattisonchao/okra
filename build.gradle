@@ -1,0 +1,31 @@
+plugins {
+    id 'java-library'
+    id 'checkstyle'
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
+    }
+}
+
+subprojects {
+    apply plugin: 'java-library'
+    apply plugin: 'checkstyle'
+
+
+    dependencies {
+        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.2'
+        testImplementation 'org.junit.jupiter:junit-jupiter-engine'
+        implementation 'org.apache.commons:commons-math3:3.6.1'
+        implementation 'com.google.guava:guava:29.0-jre'
+    }
+
+    checkstyle {
+        configFile  file("${project.rootDir}/config/checkstyle/checkstyle.xml")
+        version '8.1'
+    }
+    tasks.named('test') {
+        useJUnitPlatform()
+    }
+}

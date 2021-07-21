@@ -5,10 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="740d715a-9219-475e-9d8c-30fdaecec888" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/okra-actor/src/main/java/com/github/okra/netty/codec/Decoder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/okra-actor/src/main/java/com/github/okra/netty/codec/Encoder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/okra-actor/src/main/java/com/github/okra/netty/serilizer/HessianSerialize.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/okra-actor/src/main/java/com/github/okra/netty/serilizer/Serializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/checkstyle/checkstyle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/okra-actor/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/okra-actor/build.gradle" afterDir="false" />
     </list>
@@ -34,12 +32,50 @@
         <task path="$PROJECT_DIR$/okra-raft">
           <activation />
         </task>
+        <task path="$PROJECT_DIR$/okra-actor">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
             <expand>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="okra" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="okra" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="okra" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="okra" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="verification" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="okra" type="f1a62948:ProjectNode" />
+                <item name="okra-actor" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="okra" type="f1a62948:ProjectNode" />
+                <item name="okra-actor" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="okra" type="f1a62948:ProjectNode" />
+                <item name="okra-actor" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="verification" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -97,34 +133,8 @@
       <recent name="com.github.okra.netty.serilizer" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Worker">
-    <configuration name="Master" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="com.github.okra.Master" />
-      <module name="okra.okra-raft.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.github.okra.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Worker" type="Application" factoryName="Application" temporary="true">
-      <option name="MAIN_CLASS_NAME" value="com.github.okra.Worker" />
-      <module name="okra.okra-raft.main" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.github.okra.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="okra [dependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.okra [check]">
+    <configuration name="okra [check]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -135,7 +145,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="dependencies" />
+            <option value="check" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -145,10 +155,31 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
-    <configuration name="okra:okra-raft [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="okra [checkstyleTest]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/okra-raft" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="checkstyleTest" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="okra [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
         <option name="scriptParameters" />
         <option name="taskDescriptions">
@@ -166,12 +197,55 @@
       <DebugAllEnabled>false</DebugAllEnabled>
       <method v="2" />
     </configuration>
+    <configuration name="okra [test]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="test" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
+    <configuration name="okra:okra-actor [check]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/okra-actor" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="check" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Worker" />
-        <item itemvalue="Application.Master" />
-        <item itemvalue="Gradle.okra [dependencies]" />
-        <item itemvalue="Gradle.okra:okra-raft [clean]" />
+        <item itemvalue="Gradle.okra [check]" />
+        <item itemvalue="Gradle.okra [clean]" />
+        <item itemvalue="Gradle.okra:okra-actor [check]" />
+        <item itemvalue="Gradle.okra [test]" />
+        <item itemvalue="Gradle.okra [checkstyleTest]" />
       </list>
     </recent_temporary>
   </component>
@@ -187,7 +261,9 @@
       <workItem from="1626424804295" duration="3082000" />
       <workItem from="1626679727284" duration="5548000" />
       <workItem from="1626764682126" duration="10163000" />
-      <workItem from="1626819705700" duration="1391000" />
+      <workItem from="1626819705700" duration="2637000" />
+      <workItem from="1626848778892" duration="3983000" />
+      <workItem from="1626853589339" duration="130000" />
     </task>
     <servers />
   </component>
@@ -204,5 +280,9 @@
         <PinnedItemInfo parentTag="java.util.AbstractMap$SimpleImmutableEntry" memberName="key" />
       </pinned-members>
     </pin-to-top-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

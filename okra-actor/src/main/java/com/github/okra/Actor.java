@@ -4,22 +4,18 @@ import com.github.okra.disruptor.MessageEvent;
 import com.lmax.disruptor.EventHandler;
 import com.lmax.disruptor.WorkHandler;
 
-
 public abstract class Actor implements EventHandler<MessageEvent>, WorkHandler<MessageEvent> {
 
-    public final MailBox mailBox = new MailBox(this);
+  public final MailBox mailBox = new MailBox(this);
 
-    abstract void preStart();
+  abstract void preStart();
 
-    public void send() {
+  public void send() {}
 
-    }
+  @Override
+  public void onEvent(MessageEvent event) throws Exception {
+    receive(event);
+  }
 
-    @Override
-    public void onEvent(MessageEvent event) throws Exception {
-        receive(event);
-    }
-
-    abstract void receive(MessageEvent event);
-
+  abstract void receive(MessageEvent event);
 }
