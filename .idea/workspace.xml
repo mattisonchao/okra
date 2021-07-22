@@ -5,21 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="740d715a-9219-475e-9d8c-30fdaecec888" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/okra-actor/src/main/java/com/github/okra/netty/pool/ClientPool.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/okra-actor/src/test/java/A.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/okra-actor/src/test/java/AE.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/okra-actor/src/test/java/B.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/okra-actor/src/test/java/BE.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/okra-raft/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/okra-raft/src/main/java/com/github/okra/Consensus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/okra-raft/src/main/java/com/github/okra/Node.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/okra-raft/src/main/java/com/github/okra/evn/NodeState.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/okra-raft/src/main/java/com/github/okra/evn/RaftCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/okra-raft/src/main/java/com/github/okra/model/AppendEntriesArg.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/okra-raft/src/main/java/com/github/okra/model/AppendEntriesResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/okra-raft/src/main/java/com/github/okra/model/Command.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/okra-raft/src/main/java/com/github/okra/model/LogEntry.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/okra-raft/src/main/java/com/github/okra/model/RequestVoteArg.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/okra-raft/src/main/java/com/github/okra/model/RequestVoteResult.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/okra-raft/src/main/java/com/github/okra/store/RocketStore.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/okra-raft/src/main/java/com/github/okra/store/Store.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/okra-actor/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/okra-actor/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/okra-actor/src/main/java/com/github/okra/Actor.java" beforeDir="false" afterPath="$PROJECT_DIR$/okra-actor/src/main/java/com/github/okra/Actor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/okra-actor/src/main/java/com/github/okra/MailBox.java" beforeDir="false" afterPath="$PROJECT_DIR$/okra-actor/src/main/java/com/github/okra/MailBox.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/okra-actor/src/main/java/com/github/okra/netty/codec/Decoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/okra-actor/src/main/java/com/github/okra/netty/codec/Decoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/okra-actor/src/main/java/com/github/okra/netty/codec/Encoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/okra-actor/src/main/java/com/github/okra/netty/codec/Encoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/okra-actor/src/main/java/com/github/okra/netty/serilizer/HessianSerialize.java" beforeDir="false" afterPath="$PROJECT_DIR$/okra-actor/src/main/java/com/github/okra/netty/serilizer/HessianSerialize.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/okra-actor/src/main/java/com/github/okra/netty/serilizer/Serializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/okra-actor/src/main/java/com/github/okra/netty/serilizer/Serializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/okra-actor/src/main/java/com/github/okra/modal/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/okra-actor/src/main/java/com/github/okra/modal/Message.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,43 +62,20 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="okra" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="okra-raft" type="2d1252cf:ModuleNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="okra" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build" type="c8890929:TasksNode$1" />
+                <item name="okra-raft" type="2d1252cf:ModuleNode" />
+                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="okra" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="other" type="c8890929:TasksNode$1" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="okra" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="verification" type="c8890929:TasksNode$1" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="okra" type="f1a62948:ProjectNode" />
-                <item name="okra-actor" type="2d1252cf:ModuleNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="okra" type="f1a62948:ProjectNode" />
-                <item name="okra-actor" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="okra" type="f1a62948:ProjectNode" />
-                <item name="okra-actor" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="verification" type="c8890929:TasksNode$1" />
+                <item name="okra-raft" type="2d1252cf:ModuleNode" />
+                <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
+                <item name="compileClasspath" type="62daadca:ExternalSystemViewDefaultContributor$DependencyScopeExternalSystemNode" />
               </path>
             </expand>
             <select />
@@ -104,6 +87,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Enum" />
         <option value="Interface" />
         <option value="Class" />
       </list>
@@ -138,6 +122,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/okra-raft" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -150,6 +135,9 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/okra-raft" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/okra-raft/main" />
       <recent name="$PROJECT_DIR$/okra-raft/scala" />
@@ -264,7 +252,9 @@
       <workItem from="1626819705700" duration="2637000" />
       <workItem from="1626848778892" duration="3983000" />
       <workItem from="1626853589339" duration="130000" />
-      <workItem from="1626853742302" duration="7495000" />
+      <workItem from="1626853742302" duration="7826000" />
+      <workItem from="1626935600458" duration="3433000" />
+      <workItem from="1626994000967" duration="606000" />
     </task>
     <servers />
   </component>

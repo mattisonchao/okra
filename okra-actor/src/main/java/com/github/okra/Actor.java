@@ -17,7 +17,7 @@ public abstract class Actor implements EventHandler<MessageEvent> {
 
   public void deploy() {
     preStart();
-    new MailBox(this,port);
+    new MailBox(this, port);
   }
 
   public void send(InetSocketAddress receiver, Message message) {
