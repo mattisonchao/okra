@@ -1,6 +1,8 @@
 package com.github.okra.model;
 
-public class LogEntry {
+import java.io.Serializable;
+
+public class LogEntry  implements Serializable {
   private Command command;
   private Integer term;
 

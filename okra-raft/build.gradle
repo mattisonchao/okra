@@ -1,3 +1,5 @@
 dependencies {
     implementation project('::okra-actor')
+    implementation project('::okra-common')
+    implementation "org.rocksdb:rocksdbjni:6.20.3"
 }

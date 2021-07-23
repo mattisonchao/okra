@@ -3,7 +3,7 @@ package com.github.okra;
 import com.github.okra.evn.NodeState;
 import com.github.okra.evn.RaftCommand;
 import com.github.okra.modal.Message;
-import com.github.okra.store.RocketStore;
+import com.github.okra.store.RocksStore;
 import com.github.okra.store.Store;
 import java.net.InetSocketAddress;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 public class Node extends Actor {
   private static final Logger logger = LoggerFactory.getLogger(Node.class);
   private final Consensus consensus = Consensus.create(this);
-  public final Store store = new RocketStore();
+  public final Store store = new RocksStore();
   private volatile Integer commitIndex = 0;
   private volatile Integer lastApplied = 0;
   private volatile NodeState state = NodeState.FOLLOWER;

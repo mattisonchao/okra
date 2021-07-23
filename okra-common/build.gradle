@@ -1,0 +1,3 @@
+dependencies {
+    implementation 'com.caucho:hessian:4.0.65'
+}
