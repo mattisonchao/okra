@@ -10,18 +10,18 @@ import java.net.InetSocketAddress;
 public abstract class Actor implements EventHandler<MessageEvent> {
 
   private final ClientPool clientPool = new ClientPool();
-  protected Integer port = 7878;
+  private InetSocketAddress id = new InetSocketAddress("127.0.0.1", 9981);
   MailBox mailBox = null;
 
-  public abstract void preStart();
+  protected abstract void preStart();
 
   public void deploy() {
     preStart();
-    new MailBox(this, port);
+    new MailBox(this, id.getPort());
   }
 
-  public void send(InetSocketAddress receiver, Message message) {
-    Channel channel = clientPool.getChannel(receiver);
+  protected void send(Message message) {
+    Channel channel = clientPool.getChannel(message.getReceiver());
     channel
         .writeAndFlush(message)
         .addListener(
@@ -37,9 +37,17 @@ public abstract class Actor implements EventHandler<MessageEvent> {
     receive(event.getMessage());
   }
 
-  public abstract void receive(Message event);
+  protected abstract void receive(Message event);
 
   public void destroy() {
     mailBox.destroy();
+  }
+
+  public InetSocketAddress getId() {
+    return id;
+  }
+
+  public void setId(InetSocketAddress id) {
+    this.id = id;
   }
 }
