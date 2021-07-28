@@ -8,6 +8,14 @@ public class RequestVoteArg {
   private Integer lastLogIndex;
   private Integer lastLogTerm;
 
+  public RequestVoteArg(
+      Integer term, InetSocketAddress candidateId, Integer lastLogIndex, Integer lastLogTerm) {
+    this.term = term;
+    this.candidateId = candidateId;
+    this.lastLogIndex = lastLogIndex;
+    this.lastLogTerm = lastLogTerm;
+  }
+
   public Integer getTerm() {
     return term;
   }

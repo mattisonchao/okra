@@ -2,9 +2,15 @@ package com.github.okra.model;
 
 import java.io.Serializable;
 
-public class LogEntry  implements Serializable {
+public class LogEntry implements Serializable {
   private Command command;
   private Integer term;
+
+  public static LogEntry emptyEntry() {
+    LogEntry logEntry = new LogEntry();
+    logEntry.setTerm(-1);
+    return logEntry;
+  }
 
   public Command getCommand() {
     return command;

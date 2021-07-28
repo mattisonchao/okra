@@ -2,7 +2,7 @@ package com.github.okra.model;
 
 public class AppendEntriesResult {
   private Integer term;
-  private Integer success;
+  private Boolean success;
 
   public Integer getTerm() {
     return term;
@@ -12,11 +12,11 @@ public class AppendEntriesResult {
     this.term = term;
   }
 
-  public Integer getSuccess() {
+  public Boolean getSuccess() {
     return success;
   }
 
-  public void setSuccess(Integer success) {
+  public void setSuccess(Boolean success) {
     this.success = success;
   }
 
