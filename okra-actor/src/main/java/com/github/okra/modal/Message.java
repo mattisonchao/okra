@@ -43,9 +43,27 @@ public class Message implements Serializable {
     this.content = content;
   }
 
-  @Override
-  public String toString() {
-    return "Message{" + "id='" + id + '\'' + ", data=" + data + '}';
+  public Message reply(Object content) {
+    Message message = new Message();
+    message.setId(this.id);
+    message.setContent(content);
+    message.setReceiver(this.sender);
+    message.setSender(this.receiver);
+    return message;
   }
 
+  @Override
+  public String toString() {
+    return "Message{"
+        + "id='"
+        + id
+        + '\''
+        + ", sender="
+        + sender
+        + ", receiver="
+        + receiver
+        + ", content="
+        + content
+        + '}';
+  }
 }

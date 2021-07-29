@@ -17,8 +17,10 @@ public abstract class Actor implements EventHandler<MessageEvent> {
 
   public void deploy() {
     preStart();
-    new MailBox(this, id.getPort());
+    MailBox mailBox = new MailBox(this, id.getPort(), this::afterStart);
   }
+
+  protected abstract void afterStart();
 
   protected void send(Message message) {
     Channel channel = clientPool.getChannel(message.getReceiver());

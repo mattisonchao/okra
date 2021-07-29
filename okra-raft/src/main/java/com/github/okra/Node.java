@@ -4,10 +4,13 @@ import static com.github.okra.evn.RaftCommand.REQUEST_VOTE_RS;
 import com.github.okra.evn.NodeState;
 import com.github.okra.evn.RaftCommand;
 import com.github.okra.modal.Message;
+import com.github.okra.model.AppendEntriesArg;
 import com.github.okra.model.AppendEntriesResult;
 import com.github.okra.model.LogEntry;
 import com.github.okra.model.Proposal;
+import com.github.okra.model.RequestVoteArg;
 import com.github.okra.model.RequestVoteResult;
+import com.github.okra.option.NodeOption;
 import com.github.okra.store.RocksStore;
 import com.github.okra.store.Store;
 import io.netty.util.HashedWheelTimer;
@@ -15,7 +18,6 @@ import io.netty.util.TimerTask;
 import io.netty.util.concurrent.DefaultThreadFactory;
 import java.net.InetSocketAddress;
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -26,6 +28,12 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Raft Node.
+ *
+ * @author mattison
+ * @version 1.0
+ */
 public class Node extends Actor {
   private static final Logger logger = LoggerFactory.getLogger(Node.class);
   private final Consensus consensus = Consensus.create(this);
@@ -38,16 +46,100 @@ public class Node extends Actor {
   private final Map<InetSocketAddress, Integer> nextIndex = new ConcurrentHashMap<>();
   private final Map<InetSocketAddress, Integer> matchIndex = new ConcurrentHashMap<>();
   private final Map<RaftCommand, Proposal> proposals = new ConcurrentHashMap<>();
-  private final List<InetSocketAddress> peerIds = new ArrayList<>();
   private final HashedWheelTimer timer = new HashedWheelTimer(new DefaultThreadFactory("timer-"));
+  private NodeOption option;
+  private List<InetSocketAddress> peerIds;
 
   @Override
-  protected void preStart() {}
+  protected void preStart() {
+    this.setId(option.getSelf());
+    this.peerIds = option.getPeers();
+  }
+
+  @Override
+  protected void afterStart() {
+    startElectionTimoutTimer();
+  }
+
+  public void loadOption(NodeOption option) {
+    this.option = option;
+  }
 
   @Override
   protected void receive(Message event) {
     switch (RaftCommand.getRaftCommand(event.getContent())) {
       case APPEND_ENTRIES_RQ:
+        AppendEntriesArg appendEntriesArg = (AppendEntriesArg) event.getContent();
+        logger.info("Receive AppendEntry request, {}", appendEntriesArg);
+        if (appendEntriesArg.getTerm() > store.getCurrentTerm()) {
+          logger.info("Current term is before result term");
+          stateTransformer.becomeFollower(appendEntriesArg.getTerm());
+          return;
+        }
+        if (appendEntriesArg.getTerm().equals(store.getCurrentTerm())) {
+          if (state != NodeState.FOLLOWER) {
+            stateTransformer.becomeFollower(appendEntriesArg.getTerm());
+          }
+          setElectionResetEvent(Instant.now());
+          if (appendEntriesArg.getPrevLogIndex() == -1
+              || (appendEntriesArg.getPrevLogIndex() < store.logSize()
+                  && appendEntriesArg
+                      .getPrevLogTerm()
+                      .equals(store.log(appendEntriesArg.getPrevLogIndex()).get().getTerm()))) {
+            int logInsertIndex = appendEntriesArg.getPrevLogIndex() + 1;
+            int newEntriesIndex = 0;
+            while (true) {
+              if (logInsertIndex >= store.logSize()
+                  || newEntriesIndex >= appendEntriesArg.getEntries().size()) {
+                break;
+              }
+              Optional<LogEntry> log = store.log(logInsertIndex);
+              if (log.isPresent()
+                  && !log.get()
+                      .getTerm()
+                      .equals(appendEntriesArg.getEntries().get(newEntriesIndex).getTerm())) {
+                break;
+              }
+              logInsertIndex++;
+              newEntriesIndex++;
+            }
+            if (newEntriesIndex < appendEntriesArg.getEntries().size()) {
+              logger.info(
+                  "From index {} to insert log {}",
+                  logInsertIndex,
+                  appendEntriesArg
+                      .getEntries()
+                      .subList(logInsertIndex, appendEntriesArg.getEntries().size()));
+              store.addLogs(
+                  appendEntriesArg
+                      .getEntries()
+                      .subList(newEntriesIndex, appendEntriesArg.getEntries().size()));
+              logger.info("The current Log content is {}", store.logs());
+            }
+            if (appendEntriesArg.getLeaderCommit() > commitIndex) {
+              commitIndex = Math.min(appendEntriesArg.getLeaderCommit(), store.logSize() - 1);
+              logger.info(" Setting commitIndex to {}", commitIndex);
+            }
+            AppendEntriesResult appendEntriesResult = new AppendEntriesResult();
+            appendEntriesResult.setTerm(store.getCurrentTerm());
+            appendEntriesResult.setSuccess(true);
+            logger.info(" reply appendEntry {}", appendEntriesArg);
+            Message reply = event.reply(appendEntriesResult);
+            send(reply);
+            return;
+          } else {
+            logger.info(
+                "Node term {} is grater than request term {}",
+                store.getCurrentTerm(),
+                appendEntriesArg.getTerm());
+            AppendEntriesResult appendEntriesResult = new AppendEntriesResult();
+            appendEntriesResult.setTerm(store.getCurrentTerm());
+            appendEntriesResult.setSuccess(false);
+            Message reply = event.reply(appendEntriesResult);
+            send(reply);
+          }
+        }
+
         break;
       case APPEND_ENTRIES_RS:
         checkAndGetProposal(event)
@@ -97,6 +189,38 @@ public class Node extends Actor {
                 });
         break;
       case REQUEST_VOTE_RQ:
+        RequestVoteArg requestVoteArg = (RequestVoteArg) event.getContent();
+        Integer lastLogIndex = store.lastLogIndex();
+        Integer lastLogTerm = store.log(lastLogIndex).orElse(LogEntry.emptyEntry()).getTerm();
+        Optional<InetSocketAddress> voteFor = store.getVoteFor();
+        logger.info(
+            "Receive RequestVote = {}, currentTerm = {} , votedFor = {} , log index/term = {}/{} ",
+            requestVoteArg,
+            store.getCurrentTerm(),
+            voteFor,
+            lastLogIndex,
+            lastLogTerm);
+        if (requestVoteArg.getTerm() > store.getCurrentTerm()) {
+          logger.info("Current term is less than requestVote term, to become follower");
+          stateTransformer.becomeFollower(requestVoteArg.getTerm());
+        }
+        if (store.getCurrentTerm().equals(requestVoteArg.getTerm())
+                && (!voteFor.isPresent() || voteFor.get() == requestVoteArg.getCandidateId())
+                && requestVoteArg.getLastLogTerm() > lastLogTerm
+            || (requestVoteArg.getLastLogTerm().equals(lastLogTerm)
+                && requestVoteArg.getLastLogIndex() >= lastLogIndex)) {
+          store.voteFor(requestVoteArg.getCandidateId());
+          setElectionResetEvent(Instant.now());
+          RequestVoteResult requestVoteResult = new RequestVoteResult();
+          requestVoteResult.setTerm(store.getCurrentTerm());
+          requestVoteResult.setVoteGranted(true);
+          send(event.reply(requestVoteResult));
+        } else {
+          RequestVoteResult requestVoteResult = new RequestVoteResult();
+          requestVoteResult.setTerm(store.getCurrentTerm());
+          requestVoteResult.setVoteGranted(false);
+          send(event.reply(requestVoteResult));
+        }
         break;
       case REQUEST_VOTE_RS:
         checkAndGetProposal(event)
@@ -120,7 +244,7 @@ public class Node extends Actor {
                 });
         break;
       default:
-        logger.warn(" Receive unKnow message. the message is  {} ", event.getData());
+        logger.warn(" Receive unKnow message. the message is  {} ", event.getContent());
     }
   }
 
