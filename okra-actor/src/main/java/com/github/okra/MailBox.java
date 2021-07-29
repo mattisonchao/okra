@@ -35,7 +35,7 @@ public class MailBox {
           ProducerType.SINGLE,
           new YieldingWaitStrategy());
 
-  public MailBox(EventHandler<MessageEvent> handler, Integer port) {
+  public MailBox(EventHandler<MessageEvent> handler, Integer port, Runnable afterStart) {
     disruptor.handleEventsWith(handler);
     disruptor.start();
     bootstrap
@@ -59,7 +59,14 @@ public class MailBox {
                         });
               }
             });
-    bootstrap.bind(port);
+    bootstrap
+        .bind(port)
+        .addListener(
+            (future) -> {
+              if (future.isSuccess()) {
+                afterStart.run();
+              }
+            });
   }
 
   public void putMessage(Message message) {

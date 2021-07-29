@@ -23,7 +23,6 @@ import org.rocksdb.RocksDBException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 public class RocksStore implements Store {
 
   private static final Logger logger = LoggerFactory.getLogger(RocksStore.class);
@@ -162,8 +161,11 @@ public class RocksStore implements Store {
   public Optional<LogEntry> log(Integer index) {
     try {
       byte[] logEntryBytes = logs.get(index.toString().getBytes(StandardCharsets.UTF_8));
+      if (logEntryBytes == null) {
+        return Optional.empty();
+      }
       LogEntry entry = HessianSerializeUtils.deserialize(logEntryBytes);
-      return Optional.ofNullable(entry);
+      return Optional.of(entry);
     } catch (RocksDBException e) {
       e.printStackTrace();
     }
