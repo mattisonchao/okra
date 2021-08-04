@@ -1,5 +1,6 @@
 package com.github.okra.netty.pool;
 
+import com.github.okra.modal.Endpoint;
 import com.github.okra.netty.codec.Decoder;
 import com.github.okra.netty.codec.Encoder;
 import com.github.okra.netty.serilizer.HessianSerialize;
@@ -59,8 +60,9 @@ public class ClientPool {
         }
       };
 
-  public Channel getChannel(InetSocketAddress address) {
-    Future<Channel> channelFuture = poolMap.get(address).acquire();
+  public Channel getChannel(Endpoint address) {
+    Future<Channel> channelFuture =
+        poolMap.get(new InetSocketAddress(address.getHost(), address.getPort())).acquire();
     try {
       return channelFuture.get();
     } catch (InterruptedException | ExecutionException e) {

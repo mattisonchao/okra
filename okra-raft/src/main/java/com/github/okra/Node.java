@@ -1,8 +1,10 @@
 package com.github.okra;
 
 import static com.github.okra.evn.RaftCommand.REQUEST_VOTE_RS;
+
 import com.github.okra.evn.NodeState;
 import com.github.okra.evn.RaftCommand;
+import com.github.okra.modal.Endpoint;
 import com.github.okra.modal.Message;
 import com.github.okra.model.AppendEntriesArg;
 import com.github.okra.model.AppendEntriesResult;
@@ -16,7 +18,6 @@ import com.github.okra.store.Store;
 import io.netty.util.HashedWheelTimer;
 import io.netty.util.TimerTask;
 import io.netty.util.concurrent.DefaultThreadFactory;
-import java.net.InetSocketAddress;
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
@@ -43,12 +44,12 @@ public class Node extends Actor {
   private volatile Integer lastApplied = 0;
   private volatile NodeState state = NodeState.FOLLOWER;
   private volatile Instant electionResetEvent = Instant.now();
-  private final Map<InetSocketAddress, Integer> nextIndex = new ConcurrentHashMap<>();
-  private final Map<InetSocketAddress, Integer> matchIndex = new ConcurrentHashMap<>();
+  private final Map<Endpoint, Integer> nextIndex = new ConcurrentHashMap<>();
+  private final Map<Endpoint, Integer> matchIndex = new ConcurrentHashMap<>();
   private final Map<RaftCommand, Proposal> proposals = new ConcurrentHashMap<>();
   private final HashedWheelTimer timer = new HashedWheelTimer(new DefaultThreadFactory("timer-"));
   private NodeOption option;
-  private List<InetSocketAddress> peerIds;
+  private List<Endpoint> peerIds;
 
   @Override
   protected void preStart() {
@@ -153,7 +154,7 @@ public class Node extends Actor {
                   }
                   if (state == NodeState.LEADER && proposal.getTerm().equals(result.getTerm())) {
                     if (result.getSuccess()) {
-                      InetSocketAddress peer = event.getSender();
+                      Endpoint peer = event.getSender();
                       Integer peerNextIndex = nextIndex.get(peer);
                       nextIndex.put(
                           peer,
@@ -192,7 +193,7 @@ public class Node extends Actor {
         RequestVoteArg requestVoteArg = (RequestVoteArg) event.getContent();
         Integer lastLogIndex = store.lastLogIndex();
         Integer lastLogTerm = store.log(lastLogIndex).orElse(LogEntry.emptyEntry()).getTerm();
-        Optional<InetSocketAddress> voteFor = store.getVoteFor();
+        Optional<Endpoint> voteFor = store.getVoteFor();
         logger.info(
             "Receive RequestVote = {}, currentTerm = {} , votedFor = {} , log index/term = {}/{} ",
             requestVoteArg,
@@ -269,7 +270,6 @@ public class Node extends Actor {
           if (state != NodeState.CANDIDATE && state != NodeState.FOLLOWER) {
             logger.info(
                 "Election timer: the node state is {}, So we need to break this timeout", state);
-            timeout.cancel();
             return;
           }
           if (termStarted != store.getCurrentTerm()) {
@@ -277,15 +277,15 @@ public class Node extends Actor {
                 "Election timer: the term changed, from {} to {} ",
                 termStarted,
                 store.getCurrentTerm());
-            timeout.cancel();
             return;
           }
           Instant now = Instant.now();
           if (now.compareTo(electionResetEvent.plusMillis(new Random().nextInt(150 + 1) + 150))
               > 0) {
             consensus.startLeaderElection();
+          } else {
+            timer.newTimeout(timeout.task(), 10, TimeUnit.MILLISECONDS);
           }
-          timer.newTimeout(timeout.task(), 10, TimeUnit.MILLISECONDS);
         };
     timer.newTimeout(task, 10, TimeUnit.MILLISECONDS);
   }
@@ -337,15 +337,15 @@ public class Node extends Actor {
     this.electionResetEvent = electionResetEvent;
   }
 
-  public Map<InetSocketAddress, Integer> getNextIndex() {
+  public Map<Endpoint, Integer> getNextIndex() {
     return nextIndex;
   }
 
-  public Map<InetSocketAddress, Integer> getMatchIndex() {
+  public Map<Endpoint, Integer> getMatchIndex() {
     return matchIndex;
   }
 
-  public List<InetSocketAddress> getPeerIds() {
+  public List<Endpoint> getPeerIds() {
     return peerIds;
   }
 

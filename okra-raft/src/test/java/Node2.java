@@ -8,7 +8,6 @@ public class Node2 {
         NodeOptionBuilder.getBuilder()
             .self("127.0.0.1:8898")
             .peer("127.0.0.1:8899")
-            .peer("127.0.0.1:8897")
             .build();
     Node node = new Node();
     node.loadOption(option);

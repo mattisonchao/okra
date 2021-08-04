@@ -52,6 +52,7 @@ public class StateTransformer {
         node.getNextIndex(),
         node.getMatchIndex(),
         node.getStore().logs());
+    node.startHeartbeatsTimer();
   }
 
 }

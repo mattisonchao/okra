@@ -1,6 +1,8 @@
 package com.github.okra.model;
 
-public class RequestVoteResult {
+import java.io.Serializable;
+
+public class RequestVoteResult implements Serializable {
   private Integer term;
   private Boolean voteGranted;
 

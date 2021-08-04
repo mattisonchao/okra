@@ -1,11 +1,13 @@
 package com.github.okra.model;
 
+import com.github.okra.modal.Endpoint;
+import java.io.Serializable;
 import java.net.InetSocketAddress;
 import java.util.List;
 
-public class AppendEntriesArg {
+public class AppendEntriesArg implements Serializable {
   private Integer term;
-  private InetSocketAddress leaderId;
+  private Endpoint leaderId;
   private Integer prevLogIndex;
   private Integer prevLogTerm;
   private List<LogEntry> entries;
@@ -19,11 +21,11 @@ public class AppendEntriesArg {
     this.term = term;
   }
 
-  public InetSocketAddress getLeaderId() {
+  public Endpoint getLeaderId() {
     return leaderId;
   }
 
-  public void setLeaderId(InetSocketAddress leaderId) {
+  public void setLeaderId(Endpoint leaderId) {
     this.leaderId = leaderId;
   }
 

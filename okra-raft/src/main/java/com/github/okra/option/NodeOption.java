@@ -1,25 +1,26 @@
 package com.github.okra.option;
 
+import com.github.okra.modal.Endpoint;
 import java.net.InetSocketAddress;
 import java.util.List;
 
 public class NodeOption {
-  private InetSocketAddress self;
-  private List<InetSocketAddress> peers;
+  private Endpoint self;
+  private List<Endpoint> peers;
 
-  public InetSocketAddress getSelf() {
+  public Endpoint getSelf() {
     return self;
   }
 
-  public void setSelf(InetSocketAddress self) {
+  public void setSelf(Endpoint self) {
     this.self = self;
   }
 
-  public List<InetSocketAddress> getPeers() {
+  public List<Endpoint> getPeers() {
     return peers;
   }
 
-  public void setPeers(List<InetSocketAddress> peers) {
+  public void setPeers(List<Endpoint> peers) {
     this.peers = peers;
   }
 }

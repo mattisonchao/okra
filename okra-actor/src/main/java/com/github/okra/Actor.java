@@ -1,6 +1,7 @@
 package com.github.okra;
 
 import com.github.okra.disruptor.MessageEvent;
+import com.github.okra.modal.Endpoint;
 import com.github.okra.modal.Message;
 import com.github.okra.netty.pool.ClientPool;
 import com.lmax.disruptor.EventHandler;
@@ -10,7 +11,7 @@ import java.net.InetSocketAddress;
 public abstract class Actor implements EventHandler<MessageEvent> {
 
   private final ClientPool clientPool = new ClientPool();
-  private InetSocketAddress id = new InetSocketAddress("127.0.0.1", 9981);
+  private Endpoint id = Endpoint.of("127.0.0.1", 9981);
   MailBox mailBox = null;
 
   protected abstract void preStart();
@@ -45,11 +46,15 @@ public abstract class Actor implements EventHandler<MessageEvent> {
     mailBox.destroy();
   }
 
-  public InetSocketAddress getId() {
+  public ClientPool getClientPool() {
+    return clientPool;
+  }
+
+  public Endpoint getId() {
     return id;
   }
 
-  public void setId(InetSocketAddress id) {
+  public void setId(Endpoint id) {
     this.id = id;
   }
 }

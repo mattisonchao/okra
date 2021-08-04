@@ -59,7 +59,6 @@ public class Consensus {
     int savedCurrentTerm = node.getStore().getCurrentTerm() + 1;
     node.getStore().setCurrentTerm(savedCurrentTerm);
     node.getStore().voteFor(node.getId());
-    node.setElectionResetEvent(Instant.now());
     logger.info(
         "Node become candidate , the current term is {} , the logs = {}",
         savedCurrentTerm,
@@ -86,12 +85,14 @@ public class Consensus {
                       .build();
                 })
             .collect(Collectors.toList());
+    node.submitNewProposal(RaftCommand.REQUEST_VOTE_RS, proposal);
     CompletableFuture.runAsync(
             () -> messages.parallelStream().forEach(message -> node.send(message)), connectionPool)
         .whenComplete(
             (unused, throwable) -> {
               if (throwable == null) {
-                node.submitNewProposal(RaftCommand.REQUEST_VOTE_RS, proposal);
+                node.setElectionResetEvent(Instant.now());
+                node.startElectionTimoutTimer();
                 return;
               }
               throwable.printStackTrace();

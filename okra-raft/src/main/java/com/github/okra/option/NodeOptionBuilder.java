@@ -1,5 +1,6 @@
 package com.github.okra.option;
 
+import com.github.okra.modal.Endpoint;
 import java.net.InetSocketAddress;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -7,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public final class NodeOptionBuilder {
-  private InetSocketAddress self;
-  private List<InetSocketAddress> peers = new ArrayList<>();
+  private Endpoint self;
+  private List<Endpoint> peers = new ArrayList<>();
 
   private NodeOptionBuilder() {}
 
@@ -33,10 +34,10 @@ public final class NodeOptionBuilder {
     return nodeOption;
   }
 
-  private InetSocketAddress parseToNetSocket(String address) {
+  private Endpoint parseToNetSocket(String address) {
     try {
       URI uri = new URI("okra://" + address);
-      return new InetSocketAddress(uri.getHost(), uri.getPort());
+      return Endpoint.of(uri.getHost(), uri.getPort());
     } catch (URISyntaxException e) {
       e.printStackTrace();
       throw new RuntimeException("Wrong address");
