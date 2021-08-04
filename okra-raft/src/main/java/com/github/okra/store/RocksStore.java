@@ -1,5 +1,6 @@
 package com.github.okra.store;
 
+import com.github.okra.modal.Endpoint;
 import com.github.okra.model.LogEntry;
 import com.github.okra.utils.HessianSerializeUtils;
 import com.google.common.collect.Lists;
@@ -106,9 +107,13 @@ public class RocksStore implements Store {
   }
 
   @Override
-  public Optional<InetSocketAddress> getVoteFor() {
+  public Optional<Endpoint> getVoteFor() {
     try {
-      InetSocketAddress deserialize = HessianSerializeUtils.deserialize(kv.get(voteForSign));
+      byte[] bytes = kv.get(voteForSign);
+      if (bytes == null || bytes.length == 0) {
+        return Optional.empty();
+      }
+      Endpoint deserialize = HessianSerializeUtils.deserialize(bytes);
       return Optional.ofNullable(deserialize);
     } catch (RocksDBException e) {
       e.printStackTrace();
@@ -117,7 +122,7 @@ public class RocksStore implements Store {
   }
 
   @Override
-  public void voteFor(InetSocketAddress candidate) {
+  public void voteFor(Endpoint candidate) {
     try {
       kv.put(voteForSign, HessianSerializeUtils.serialize(candidate));
     } catch (RocksDBException e) {

@@ -7,23 +7,23 @@ import java.net.InetSocketAddress;
 public class Message implements Serializable {
 
   private String id;
-  private InetSocketAddress sender;
-  private InetSocketAddress receiver;
+  private Endpoint sender;
+  private Endpoint receiver;
   private Object content;
 
-  public InetSocketAddress getSender() {
+  public Endpoint getSender() {
     return sender;
   }
 
-  public void setSender(InetSocketAddress sender) {
+  public void setSender(Endpoint sender) {
     this.sender = sender;
   }
 
-  public InetSocketAddress getReceiver() {
+  public Endpoint getReceiver() {
     return receiver;
   }
 
-  public void setReceiver(InetSocketAddress receiver) {
+  public void setReceiver(Endpoint receiver) {
     this.receiver = receiver;
   }
 

@@ -1,6 +1,8 @@
 package com.github.okra.model;
 
-public class AppendEntriesResult {
+import java.io.Serializable;
+
+public class AppendEntriesResult implements Serializable {
   private Integer term;
   private Boolean success;
 

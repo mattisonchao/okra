@@ -1,12 +1,11 @@
 package com.github.okra.modal;
 
-import java.net.InetSocketAddress;
 import java.util.UUID;
 
 public final class MessageBuilder {
   private String id;
-  private InetSocketAddress sender;
-  private InetSocketAddress receiver;
+  private Endpoint sender;
+  private Endpoint receiver;
   private Object content;
 
   private MessageBuilder() {}
@@ -25,12 +24,12 @@ public final class MessageBuilder {
     return this;
   }
 
-  public MessageBuilder sender(InetSocketAddress sender) {
+  public MessageBuilder sender(Endpoint sender) {
     this.sender = sender;
     return this;
   }
 
-  public MessageBuilder receiver(InetSocketAddress receiver) {
+  public MessageBuilder receiver(Endpoint receiver) {
     this.receiver = receiver;
     return this;
   }

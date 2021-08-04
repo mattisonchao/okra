@@ -1,15 +1,17 @@
 package com.github.okra.model;
 
+import com.github.okra.modal.Endpoint;
+import java.io.Serializable;
 import java.net.InetSocketAddress;
 
-public class RequestVoteArg {
+public class RequestVoteArg implements Serializable {
   private Integer term;
-  private InetSocketAddress candidateId;
+  private Endpoint candidateId;
   private Integer lastLogIndex;
   private Integer lastLogTerm;
 
   public RequestVoteArg(
-      Integer term, InetSocketAddress candidateId, Integer lastLogIndex, Integer lastLogTerm) {
+      Integer term, Endpoint candidateId, Integer lastLogIndex, Integer lastLogTerm) {
     this.term = term;
     this.candidateId = candidateId;
     this.lastLogIndex = lastLogIndex;
@@ -24,11 +26,11 @@ public class RequestVoteArg {
     this.term = term;
   }
 
-  public InetSocketAddress getCandidateId() {
+  public Endpoint getCandidateId() {
     return candidateId;
   }
 
-  public void setCandidateId(InetSocketAddress candidateId) {
+  public void setCandidateId(Endpoint candidateId) {
     this.candidateId = candidateId;
   }
 
